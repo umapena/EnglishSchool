@@ -1,12 +1,3 @@
-----------------------------------------------
-----------------------------------------------
--- CRIACAO DE TABELAS
-----------------------------------------------
-----------------------------------------------
-
-/*********************************************
-ALUNOS
-*********************************************/
 CREATE TABLE alunos (
   id serial NOT NULL CONSTRAINT aluno_pk PRIMARY KEY,
   nome text NOT NULL,
@@ -16,16 +7,12 @@ CREATE TABLE alunos (
     sexo in ('M', 'F')
   ),
   celular text,
-  email text
+  email text,
+  id_endereco integer NOT NULL,
+  CONSTRAINT enderecos_fk FOREIGN KEY(id_endereco) REFERENCES enderecos(id) DEFERRABLE
 );
---
---
 CREATE INDEX alunos_1 ON alunos(nome);
---
---
-/*********************************************
-TURMAS
-*********************************************/
+
 CREATE TABLE turmas (
   id serial NOT NULL CONSTRAINT turmas_pk PRIMARY KEY,
   nome text NOT NULL,
@@ -34,10 +21,6 @@ CREATE TABLE turmas (
   valor numeric(9, 2) NOT NULL
 );
 
-
-/*********************************************
-MATRICULAS
-*********************************************/
 CREATE TABLE matriculas (
   id serial CONSTRAINT matriculas_pk PRIMARY KEY,
   id_aluno integer NOT NULL,
@@ -49,10 +32,6 @@ CREATE TABLE matriculas (
   data_encerramento date
 );
 
-
-/*********************************************
-FATURAS
-*********************************************/
 CREATE TABLE faturas (
   id serial CONSTRAINT faturas_pk PRIMARY KEY,
   id_matricula integer NOT NULL,
@@ -63,3 +42,30 @@ CREATE TABLE faturas (
   data_cancelamento date
 );
 
+CREATE TABLE enderecos (
+    id serial CONSTRAINT enderecos_pk PRIMARY KEY,
+    logradouro text NOT NULL,
+    cep text NOT NULL,
+    numero integer NOT NULL,
+    id_bairro integer NOT NULL,
+    CONSTRAINT bairros_fk FOREIGN KEY(id_bairro) REFERENCES bairros(id) DEFERRABLE
+)
+
+CREATE TABLE bairros (
+    id serial CONSTRAINT bairros_pk PRIMARY KEY,
+    nome text NOT NULL,
+    id_cidade integer NOT NULL,
+    CONSTRAINT cidades_fk FOREIGN KEY(id_cidade) REFERENCES cidades(id) DEFERRABLE
+)
+
+CREATE TABLE cidades (
+    id serial CONSTRAINT cidades_pk PRIMARY KEY,
+    nome text NOT NULL,
+    id_estado NOT NULL,
+    CONSTRAINT estados_fk FOREIGN KEY(id_estado) REFERENCES estados(id) DEFERRABLE
+)
+
+CREATE TABLE estados (
+    id serial CONSTRAINT estados_pk PRIMARY KEY,
+    nome text NOT NULL
+)
