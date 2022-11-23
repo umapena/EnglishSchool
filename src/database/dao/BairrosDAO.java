@@ -2,8 +2,7 @@ package database.dao;
 
 import database.connection.ConnectionFactory;
 import database.connection.EntidadeConexao;
-import database.util.DbUtil;
-import model.CidadesModel;
+import model.BairrosModel;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -13,46 +12,46 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CidadesDAO extends SistemaDAO {
+public class BairrosDAO extends SistemaDAO {
     private Connection conexao;
-    private DbUtil dbUtil = new DbUtil();
 
-    private final String selectCidadesByEstado = "SELECT * FROM public.cidades WHERE id_estado = ? ORDER BY nome ASC";
+    private String selectBairrosByCidade = "SELECT * FROM bairros WHERE id_cidade = ?";
 
-    private final PreparedStatement pstSelectCidadesByEstado;
+    private PreparedStatement pstSelectBairrosByCidade;
 
-    public CidadesDAO() {
+    public BairrosDAO() {
         try {
             this.conexao = ConnectionFactory.getConection(new EntidadeConexao());
-            pstSelectCidadesByEstado = this.conexao.prepareStatement(selectCidadesByEstado);
+            pstSelectBairrosByCidade = this.conexao.prepareStatement(selectBairrosByCidade);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Houve um erro ao inicializar os comandos SQL.");
             throw new RuntimeException(e);
         }
     }
 
-    public ArrayList<CidadesModel> selectCidadesByEstado(Integer idEstado) throws SQLException {
-        ArrayList<CidadesModel> cidadesRecuperar = new ArrayList<>();
+    public List<BairrosModel> selectBairrosByCidade(Integer idCidade) throws SQLException {
+        List<BairrosModel> arrayListBairros = new ArrayList<>();
 
-        pstSelectCidadesByEstado.setInt(1, idEstado);
+        pstSelectBairrosByCidade.setInt(1, idCidade);
 
         try {
-            ResultSet resultadoQuery = pstSelectCidadesByEstado.executeQuery();
+            ResultSet resultadoQuery = pstSelectBairrosByCidade.executeQuery();
 
             while (resultadoQuery.next()) {
-                CidadesModel cidadesModel = new CidadesModel();
+                BairrosModel bairrosModel = new BairrosModel();
 
-                cidadesModel.setId(resultadoQuery.getInt("id"));
-                cidadesModel.setNome(resultadoQuery.getString("nome"));
+                bairrosModel.setId(resultadoQuery.getInt("id"));
+                bairrosModel.setNome(resultadoQuery.getString("nome"));
+                bairrosModel.setIdCidade(resultadoQuery.getInt("id_cidade"));
 
-                cidadesRecuperar.add(cidadesModel);
+                arrayListBairros.add(bairrosModel);
             }
         } catch (SQLException e) {
-            System.out.println("Houve um erro ao recuperar as cidades do Estado!");
+            System.out.println("Houve um erro ao recuperar os bairros!");
             e.printStackTrace();
         }
 
-        return cidadesRecuperar;
+        return arrayListBairros;
     }
 
     @Override

@@ -3,7 +3,7 @@ package database.dao;
 import database.connection.ConnectionFactory;
 import database.connection.EntidadeConexao;
 import database.util.DbUtil;
-import model.CidadesModel;
+import model.EstadosModel;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -13,51 +13,45 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CidadesDAO extends SistemaDAO {
+public class EstadosDAO extends SistemaDAO {
     private Connection conexao;
     private DbUtil dbUtil = new DbUtil();
 
-    private final String selectCidadesByEstado = "SELECT * FROM public.cidades WHERE id_estado = ? ORDER BY nome ASC";
+    private final String select = "SELECT * from estados order by nome";
 
-    private final PreparedStatement pstSelectCidadesByEstado;
+    private final PreparedStatement pstSelect;
 
-    public CidadesDAO() {
+    public EstadosDAO() {
         try {
             this.conexao = ConnectionFactory.getConection(new EntidadeConexao());
-            pstSelectCidadesByEstado = this.conexao.prepareStatement(selectCidadesByEstado);
+            pstSelect = this.conexao.prepareStatement(select);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Houve um erro ao inicializar os comandos SQL.");
             throw new RuntimeException(e);
         }
     }
 
-    public ArrayList<CidadesModel> selectCidadesByEstado(Integer idEstado) throws SQLException {
-        ArrayList<CidadesModel> cidadesRecuperar = new ArrayList<>();
-
-        pstSelectCidadesByEstado.setInt(1, idEstado);
+    @Override
+    public List<Object> select() throws SQLException {
+        List<Object> arrayListEstados = new ArrayList<>();
 
         try {
-            ResultSet resultadoQuery = pstSelectCidadesByEstado.executeQuery();
+            ResultSet resultadoQuery = pstSelect.executeQuery();
 
             while (resultadoQuery.next()) {
-                CidadesModel cidadesModel = new CidadesModel();
+                EstadosModel estadosModel = new EstadosModel();
 
-                cidadesModel.setId(resultadoQuery.getInt("id"));
-                cidadesModel.setNome(resultadoQuery.getString("nome"));
+                estadosModel.setId(resultadoQuery.getInt("id"));
+                estadosModel.setNome(resultadoQuery.getString("nome"));
 
-                cidadesRecuperar.add(cidadesModel);
+                arrayListEstados.add(estadosModel);
             }
         } catch (SQLException e) {
-            System.out.println("Houve um erro ao recuperar as cidades do Estado!");
+            System.out.println("Houve um erro ao recuperar os estados!");
             e.printStackTrace();
         }
 
-        return cidadesRecuperar;
-    }
-
-    @Override
-    public List<Object> select() throws SQLException {
-        return null;
+        return arrayListEstados;
     }
 
     @Override
