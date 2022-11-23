@@ -33,7 +33,7 @@ public class AlunosCadastro extends EntidadesCadastro {
         criaComponentes(dados);
     }
 
-    private void criaComponentes(AlunosModel dados) {
+    public void criaComponentes(AlunosModel dados) {
         JPanel subPanel = new JPanel(new GridBagLayout());
         JPanel panelPrincipal = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
