@@ -15,11 +15,11 @@ public class TurmasDAO extends SistemaDAO {
     private Connection conexao;
     private DbUtil dbUtil = new DbUtil();
 
-    private final String select = "SELECT * from public.turmas ORDER BY id;";
-    private final String insert = "INSERT INTO public.turmas(nome, nivel, periodo, valor) VALUES (?, ?, ?, ?);";
-    private final String delete = "DELETE FROM public.turmas WHERE id = ?;";
-    private final String update = "UPDATE public.turmas SET nome = ?, nivel = ?, periodo = ?, valor = ?WHERE id = ?;";
-    private final String selectById = "SELECT * from public.turmas WHERE id = ?;";
+    private final String select = "SELECT * from mydb.turmas ORDER BY id;";
+    private final String insert = "INSERT INTO mydb.turmas(nome, nivel, periodo, valor) VALUES (?, ?, ?, ?);";
+    private final String delete = "DELETE FROM mydb.turmas WHERE id = ?;";
+    private final String update = "UPDATE mydb.turmas SET nome = ?, nivel = ?, periodo = ?, valor = ?WHERE id = ?;";
+    private final String selectById = "SELECT * from mydb.turmas WHERE id = ?;";
 
     private final PreparedStatement pstSelect;
     private final PreparedStatement pstInsert;

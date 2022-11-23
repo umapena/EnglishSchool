@@ -109,64 +109,12 @@ public class AlunosCadastro extends EntidadesCadastro {
         mascaraNumEndereco.install(numeroTxf);
         numeroTxf.setColumns(4);
         numeroTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "numero"));
-//
-//        JLabel complemento = new JLabel("Complemento: ");
-//        JTextField complementoTxf = new JTextField(20);
-//        complementoTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "complemento"));
-//
-//        JLabel bairro = new JLabel("Bairro: ");
-//        JTextField bairroTxf = new JTextField(20);
-//        bairroTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "bairro"));
-//
-//        JLabel pais = new JLabel("Pais: ");
-//        JTextField paisTxf = new JTextField(20);
-//        paisTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "pais"));
-//        paisTxf.setText("Brasil");
-//        paisTxf.setEditable(false);
-//
-//        JLabel estado = new JLabel("Estado: ");
-//        JComboBox comboBoxEstados = new JComboBox(cidadesController.recuperarEstadosBrasileiros().toArray(new String[0]));
-//        comboBoxEstados.setPreferredSize(new Dimension(224, 20));
-//
-//        JLabel cidade = new JLabel("Cidade: ");
-//        List<String> cidadesRecuperar = cidadesController.recuperarCidadesByEstado((String) comboBoxEstados.getSelectedItem());
-//        JComboBox comboBoxCidades = new JComboBox(cidadesRecuperar.toArray(new String[0]));
-//        comboBoxCidades.setPreferredSize(new Dimension(224, 20));
-
-//        alunosModel.setEstado((String) comboBoxEstados.getSelectedItem());
-//        alunosModel.setCidade((String) comboBoxCidades.getSelectedItem());
-
-//        comboBoxEstados.addItemListener(e -> {
-//            if (e.getStateChange() == ItemEvent.SELECTED) {
-//                comboBoxCidades.removeAllItems();
-//                List<String> cidadesDoEstado = cidadesController.recuperarCidadesByEstado(Objects.requireNonNull(comboBoxEstados.getSelectedItem()).toString());
-//
-//                cidadesDoEstado.forEach(cidadeDoEstado -> {
-//                    comboBoxCidades.addItem(cidadeDoEstado);
-//                });
-//
-//                alunosModel.setEstado((String) e.getItem());
-//            }
-//        });
-//
-//        comboBoxCidades.addItemListener(e -> {
-//            if (e.getStateChange() == ItemEvent.SELECTED) {
-//                alunosModel.setCidade((String) e.getItem());
-//            }
-//        });
 
         JLabel cep = new JLabel("CEP: ");
         JFormattedTextField cepTxf = new JFormattedTextField();
         cepTxf.setColumns(20);
         cepTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "cep"));
         mascaraCep.install(cepTxf);
-//
-//        JLabel observacao = new JLabel("Observação: ");
-//        JTextArea observacaoTxa = new JTextArea(5, 20);
-//        JScrollPane scpObservacao = new JScrollPane(observacaoTxa);
-//        observacaoTxa.setWrapStyleWord(true);
-//        observacaoTxa.setLineWrap(true);
-//        observacaoTxa.getDocument().addDocumentListener(new BindingListener(alunosModel, "observacao"));
 
         c1.insets = new Insets(0, 0, 10, 35);
         c1.gridx = 0; c1.gridy = 0; c1.anchor = GridBagConstraints.EAST;
@@ -193,22 +141,6 @@ public class AlunosCadastro extends EntidadesCadastro {
         panel.add(email, c1);
         c1.gridx = 1; c1.gridy = 5; c1.anchor = GridBagConstraints.WEST;
         panel.add(emailTxf, c1);
-
-//        panel.add(pais, c1);
-//        c1.gridx = 1; c1.gridy = 6;
-//        panel.add(paisTxf, c1);
-//        c1.gridx = 0; c1.gridy = 7;
-//        panel.add(estado, c1);
-//        c1.gridx = 1; c1.gridy = 7;
-//        panel.add(comboBoxEstados, c1);
-//        c1.gridx = 0; c1.gridy = 8;
-//        panel.add(cidade, c1);
-//        c1.gridx = 1; c1.gridy = 8;
-//        panel.add(comboBoxCidades, c1);
-//        c1.gridx = 0; c1.gridy = 10;
-//        panel.add(bairro, c1);
-//        c1.gridx = 1; c1.gridy = 10;
-//        panel.add(bairroTxf, c1);
         c1.gridx = 0; c1.gridy = 11; c1.anchor = GridBagConstraints.EAST;
         panel.add(logradouro, c1);
         c1.gridx = 1; c1.gridy = 11;
@@ -238,11 +170,6 @@ public class AlunosCadastro extends EntidadesCadastro {
             cepTxf.setText(dados.getCep());
             logradouroTxf.setText(dados.getLogradouro());
             numeroTxf.setText(dados.getNumero());
-//            complementoTxf.setText(dados.getComplemento());
-//            bairroTxf.setText(dados.getBairro());
-//            comboBoxEstados.setSelectedItem(dados.getEstado());
-//            comboBoxCidades.setSelectedItem(dados.getCidade());
-//            paisTxf.setText(dados.getPais());
         }
 
         if(isReadOnly){
@@ -256,13 +183,6 @@ public class AlunosCadastro extends EntidadesCadastro {
             numeroTxf.setBorder(BorderFactory.createEmptyBorder());
             cepTxf.setEditable(false);
             cepTxf.setBorder(BorderFactory.createEmptyBorder());
-//            bairroTxf.setEditable(false);
-//            bairroTxf.setBorder(BorderFactory.createEmptyBorder());
-//            comboBoxEstados.setEnabled(false);
-//            comboBoxEstados.setBorder(BorderFactory.createEmptyBorder());
-//            comboBoxCidades.setEnabled(false);
-//            comboBoxCidades.setBorder(BorderFactory.createEmptyBorder());
-            //paisTxf.setBorder(BorderFactory.createEmptyBorder());
             nomeTxf.setEditable(false);
             nomeTxf.setBorder(BorderFactory.createEmptyBorder());
             dateSpinner.setEnabled(false);

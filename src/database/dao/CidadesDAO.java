@@ -16,7 +16,7 @@ public class CidadesDAO extends SistemaDAO {
     private Connection conexao;
     private DbUtil dbUtil = new DbUtil();
 
-    private final String selectCidadesByEstado = "SELECT nome FROM public.cidades WHERE estado = ? ORDER BY nome ASC";
+    private final String selectCidadesByEstado = "SELECT nome FROM mydb.cidades WHERE estado = ? ORDER BY nome ASC";
 
     private final PreparedStatement pstSelectCidadesByEstado;
 

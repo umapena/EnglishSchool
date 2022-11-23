@@ -2,10 +2,10 @@ package database.connection;
 
 public class EntidadeConexao {
     private String endereco = "localhost";
-    private String porta = "5432"; //3306
-    private String nomeBanco = "EnglishSchool";
-    private String usuario = "postgres"; //admin
-    private String senha = "admin"; //admin
+    private String porta = "3306";
+    private String nomeBanco = "mydb";
+    private String usuario = "root";
+    private String senha = "admin";
 
     public String getEndereco() {
         return endereco;
