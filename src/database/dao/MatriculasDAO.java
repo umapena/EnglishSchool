@@ -14,17 +14,17 @@ public class MatriculasDAO extends SistemaDAO {
     private Connection conexao;
     private DbUtil dbUtil = new DbUtil();
 
-    private final String select = "SELECT M.*, A.nome AS nome_aluno, T.nome AS nome_turma FROM mydb.matriculas M " +
+    private final String select = "SELECT M.*, A.nome AS nome_aluno, T.nome AS nome_turma FROM public.matriculas M " +
             "INNER JOIN alunos A ON M.id_aluno = A.id " +
             "INNER JOIN turmas T ON M.id_turma = T.id ORDER BY M.id;";;
-    private final String insert = "INSERT INTO mydb.matriculas(id_aluno,id_turma,data_matricula,dia_vencimento)" +
+    private final String insert = "INSERT INTO public.matriculas(id_aluno,id_turma,data_matricula,dia_vencimento)" +
             "VALUES (?,?,?,?);";
-    private final String delete = "DELETE FROM mydb.matriculas WHERE id = ?;";
-    private final String update = "UPDATE mydb.matriculas SET id_aluno = ?, id_turma = ?, dia_vencimento = ? WHERE id = ?"; //corrigir
-    private final String selectById = "SELECT M.*, A.nome AS nome_aluno, T.nome as nome_turma FROM mydb.matriculas M " +
+    private final String delete = "DELETE FROM public.matriculas WHERE id = ?;";
+    private final String update = "UPDATE public.matriculas SET id_aluno = ?, id_turma = ?, dia_vencimento = ? WHERE id = ?"; //corrigir
+    private final String selectById = "SELECT M.*, A.nome AS nome_aluno, T.nome as nome_turma FROM public.matriculas M " +
             "INNER JOIN alunos A ON M.id_aluno = A.id " +
             "INNER JOIN turmas T ON M.id_turma = T.id WHERE M.id = ? ORDER BY M.id;";
-    private final String encerrarMatricula = "UPDATE mydb.matriculas SET data_encerramento = ? WHERE id = ?";
+    private final String encerrarMatricula = "UPDATE public.matriculas SET data_encerramento = ? WHERE id = ?";
 
     private final PreparedStatement pstSelect;
     private final PreparedStatement pstInsert;

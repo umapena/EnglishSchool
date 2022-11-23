@@ -23,7 +23,7 @@ public class AlunosCadastro extends EntidadesCadastro {
     private AlunosPanel alunosPanel;
     private EnderecosModel enderecosModel = new EnderecosModel();
     private EnderecosController enderecosController = new EnderecosController();
-    private JTextField enderecoTxf;
+    private JTextArea enderecoTxa;
     private boolean isEditando = false;
 
 
@@ -109,10 +109,11 @@ public class AlunosCadastro extends EntidadesCadastro {
         emailTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "email"));
 
         JLabel endereco = new JLabel("Endereço: ");
-        JTextField enderecoTxf = new JTextField();
-        enderecoTxf.setPreferredSize(new Dimension(185, 25));
-        enderecoTxf.setEditable(false);
-        ImageIcon smbMais = new ImageIcon(this.getClass().getResource("/resources/icons/plusIconEndereco.png"));
+        JTextArea enderecoTxa = new JTextArea(3, 17);
+        JScrollPane scpEndereco = new JScrollPane(enderecoTxa);
+        enderecoTxa.setWrapStyleWord(true);
+        enderecoTxa.setLineWrap(true);
+        ImageIcon smbMais = new ImageIcon(this.getClass().getResource("/resources/icons/editarEnderecoIcon.png"));
         JButton addEnderecoBtn = new JButton(smbMais);
         addEnderecoBtn.setBackground(Color.WHITE);
         addEnderecoBtn.setBorder(BorderFactory.createEmptyBorder());
@@ -125,7 +126,7 @@ public class AlunosCadastro extends EntidadesCadastro {
             enderecosCadastro.setVisible(true);
         });
 
-        this.enderecoTxf = enderecoTxf;
+        this.enderecoTxa = enderecoTxa;
 
         c1.insets = new Insets(0, 0, 10, 35);
         c1.gridx = 0; c1.gridy = 0; c1.anchor = GridBagConstraints.EAST;
@@ -155,7 +156,7 @@ public class AlunosCadastro extends EntidadesCadastro {
         c1.gridx = 0; c1.gridy = 6; c1.anchor = GridBagConstraints.EAST;
         subPanel.add(endereco, c1);
         c1.gridx = 1; c1.gridy = 6; c1.anchor = GridBagConstraints.WEST;
-        subPanel.add(enderecoTxf, c1);
+        subPanel.add(scpEndereco, c1);
         c1.gridx = 2; c1.gridy = 6; c1.insets = new Insets(-10,-65,0,0);
         subPanel.add(addEnderecoBtn, c1);
 
@@ -175,7 +176,7 @@ public class AlunosCadastro extends EntidadesCadastro {
             emailTxf.setText(dados.getEmail());
             enderecosModel.setId(alunosModel.getIdEndereco());
             enderecosModel = enderecosController.recuperarEnderecoDoAluno(enderecosModel);
-            enderecoTxf.setText(enderecosModel.toString());
+            enderecoTxa.setText(enderecosModel.toString());
         }
 
         c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,25,0);

@@ -34,10 +34,11 @@ public class EnderecosCadastro extends EntidadesCadastro {
     }
 
     private void criaComponentes(EnderecosModel dados) {
+        setSize(520,360);
         JPanel subPanel = new JPanel(new GridBagLayout());
         JPanel panelPrincipal = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
-        panelPrincipal.setSize(520,430);
+        panelPrincipal.setSize(520,360);
 
         MaskFormatter mascaraCep = null;
         try {
