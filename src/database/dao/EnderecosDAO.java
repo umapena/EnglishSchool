@@ -53,11 +53,10 @@ public class EnderecosDAO extends SistemaDAO {
 
         ResultSet generatedKeys = pstInsert.getGeneratedKeys();
         if (generatedKeys.next()) {
-            idInserido = generatedKeys.getInt("id");
+            idInserido = generatedKeys.getInt(1);
         }
 
-        System.out.println(idInserido);
-
+        System.out.println(pstInsert);
         return idInserido;
     }
 

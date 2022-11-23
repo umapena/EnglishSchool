@@ -14,18 +14,18 @@ public class AlunosDAO extends SistemaDAO {
     private Connection conexao;
     private DbUtil dbUtil = new DbUtil();
 
-    private final String select = "SELECT * FROM public.alunos ORDER BY id;";
+    private final String select = "SELECT * FROM alunos ORDER BY id;";
 
     private final String insert =
-            "INSERT INTO public.alunos(nome, data_nascimento, cpf, sexo, celular, email, id_endereco) " +
+            "INSERT INTO alunos(nome, data_nascimento, cpf, sexo, celular, email, id_endereco) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
-    private final String delete = "DELETE FROM public.alunos WHERE id = ?;";
+    private final String delete = "DELETE FROM alunos WHERE id = ?;";
 
-    private final String update = "UPDATE public.alunos SET nome = ?, data_nascimento = ?, cpf = ?, sexo = ?," +
+    private final String update = "UPDATE alunos SET nome = ?, data_nascimento = ?, cpf = ?, sexo = ?," +
             " celular = ?, email = ?, id_endereco = ? WHERE id = ?;";
 
-    private final String selectById = "SELECT * FROM public.alunos WHERE id = ?;";
+    private final String selectById = "SELECT * FROM alunos WHERE id = ?;";
 
     private final PreparedStatement pstSelect;
     private final PreparedStatement pstInsert;
@@ -94,9 +94,10 @@ public class AlunosDAO extends SistemaDAO {
         pstInsert.setString(5, alunosModel.getCelular());
         pstInsert.setString(6, alunosModel.getEmail());
         pstInsert.setInt(7, alunosModel.getIdEndereco());
-
+        System.out.println(pstInsert);
         try {
             pstInsert.execute();
+            System.out.println(pstInsert);
         } catch (SQLException e) {
             dbUtil.trataExcecoesDeAcordoComState(e.getSQLState());
         } finally {

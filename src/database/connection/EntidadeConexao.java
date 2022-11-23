@@ -2,17 +2,13 @@ package database.connection;
 
 public class EntidadeConexao {
     private String endereco = "localhost";
-    private String porta = "5432"; //3306
-    private String nomeBanco = "EnglishSchool";
-    private String usuario = "postgres"; //admin
-    private String senha = "postgres"; //admin
+    private String nomeBanco = "public";
+    private String usuario = "root";
+    private String senha = "root";
+    private String url = "jdbc:mysql://" + getEndereco() + "/" + getNomeBanco();
 
     public String getEndereco() {
         return endereco;
-    }
-
-    public String getPorta() {
-        return porta;
     }
 
     public String getNomeBanco() {
@@ -27,4 +23,7 @@ public class EntidadeConexao {
         return senha;
     }
 
+    public String getUrl() {
+        return url;
+    }
 }
