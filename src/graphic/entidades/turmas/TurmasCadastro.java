@@ -19,42 +19,20 @@ public class TurmasCadastro extends EntidadesCadastro {
     private boolean isEditando = false;
     public TurmasCadastro(TurmasPanel turmasPanel) {
         this.turmasPanel = turmasPanel;
-        setSize(520, 350);
         criaComponentes(null);
     }
 
     public TurmasCadastro(TurmasModel dados, TurmasPanel turmasPanel) {
         this.turmasPanel = turmasPanel;
-        setSize(520, 350);
         criaComponentes(dados);
     }
 
-    @Override
-    public void criarBotoes() {
-        JButton btnFechar = new JButton("Cancelar");
-        btnFechar.setBounds(80,200,120,30);
-        btnFechar.setFont(new Font("Helvetica", Font.BOLD, 16));
-        btnFechar.setBackground(new Color(255,92,92));
-        btnFechar.setBorder(BorderFactory.createLineBorder(new Color(255, 92, 92)));
-        add(btnFechar);
-
-        btnFechar.addActionListener(e -> {
-            dispose();
-        });
-
-        JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.setBounds(290,200,120,30);;
-        btnSalvar.addActionListener(e -> onClickSalvar());
-        btnSalvar.setFont(new Font("Helvetica", Font.BOLD, 16));
-        btnSalvar.setBackground(new Color(87, 241, 87, 210));
-        btnSalvar.setBorder(BorderFactory.createLineBorder(new Color(87, 241, 87, 210)));
-        add(btnSalvar);
-    }
-
     private void criaComponentes(TurmasModel dados){
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel subPanel = new JPanel(new GridBagLayout());
+        JPanel panelPrincipal = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
-        panel.setSize(520, 250);
+        panelPrincipal.setSize(520,430);
+        ;
 
         JLabel nome = new JLabel("Nome: ");
         JTextField nomeTxf = new JTextField(20);
@@ -101,21 +79,21 @@ public class TurmasCadastro extends EntidadesCadastro {
 
         c1.insets = new Insets(0, 0, 30, 35);
         c1.gridx = 0; c1.gridy = 0; c1.anchor = GridBagConstraints.NORTHEAST;
-        panel.add(nome, c1);
+        subPanel.add(nome, c1);
         c1.gridx = 1; c1.gridy = 0;
-        panel.add(nomeTxf, c1);
+        subPanel.add(nomeTxf, c1);
         c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.NORTHEAST;
-        panel.add(nivel, c1);
+        subPanel.add(nivel, c1);
         c1.gridx = 1; c1.gridy = 1;
-        panel.add(nivelCmbox, c1);
+        subPanel.add(nivelCmbox, c1);
         c1.gridx = 0; c1.gridy = 2; c1.anchor = GridBagConstraints.NORTHEAST;
-        panel.add(periodo, c1);
+        subPanel.add(periodo, c1);
         c1.gridx = 1; c1.gridy = 2;
-        panel.add(periodoCmbox, c1);
+        subPanel.add(periodoCmbox, c1);
         c1.gridx = 0; c1.gridy = 3; c1.anchor = GridBagConstraints.NORTHEAST;
-        panel.add(valor, c1);
+        subPanel.add(valor, c1);
         c1.gridx = 1; c1.gridy = 3;
-        panel.add(valorSpinner, c1);
+        subPanel.add(valorSpinner, c1);
 
 
         if (dados != null) {
@@ -134,7 +112,12 @@ public class TurmasCadastro extends EntidadesCadastro {
             }
         }
 
-        add(panel);
+        c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,25,0);
+        panelPrincipal.add(subPanel, c1);
+        c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.CENTER;
+        panelPrincipal.add(panelBotoes, c1);
+
+        add(panelPrincipal);
     }
 
     @Override

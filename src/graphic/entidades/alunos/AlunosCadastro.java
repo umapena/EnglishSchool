@@ -22,6 +22,7 @@ public class AlunosCadastro extends EntidadesCadastro {
     private boolean isReadOnly = false;
     private boolean isEditando = false;
 
+
     public AlunosCadastro(AlunosPanel alunosPanel) {
         this.alunosPanel = alunosPanel;
         criaComponentes(null);
@@ -38,9 +39,10 @@ public class AlunosCadastro extends EntidadesCadastro {
     }
 
     private void criaComponentes(AlunosModel dados) {
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel subPanel = new JPanel(new GridBagLayout());
+        JPanel panelPrincipal = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
-        panel.setSize(520,580);
+        panelPrincipal.setSize(520,430);
 
         MaskFormatter mascaraCelular = null;
         MaskFormatter mascaraCep = null;
@@ -100,127 +102,51 @@ public class AlunosCadastro extends EntidadesCadastro {
         JTextField emailTxf = new JTextField(20);
         emailTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "email"));
 
-        JLabel logradouro = new JLabel("Logradouro: ");
-        JTextField logradouroTxf = new JTextField(20);
-        logradouroTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "logradouro"));
-
-        JLabel numero = new JLabel("Numero: ");
-        JFormattedTextField numeroTxf = new JFormattedTextField();
-        mascaraNumEndereco.install(numeroTxf);
-        numeroTxf.setColumns(4);
-        numeroTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "numero"));
-//
-//        JLabel complemento = new JLabel("Complemento: ");
-//        JTextField complementoTxf = new JTextField(20);
-//        complementoTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "complemento"));
-//
-//        JLabel bairro = new JLabel("Bairro: ");
-//        JTextField bairroTxf = new JTextField(20);
-//        bairroTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "bairro"));
-//
-//        JLabel pais = new JLabel("Pais: ");
-//        JTextField paisTxf = new JTextField(20);
-//        paisTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "pais"));
-//        paisTxf.setText("Brasil");
-//        paisTxf.setEditable(false);
-//
-//        JLabel estado = new JLabel("Estado: ");
-//        JComboBox comboBoxEstados = new JComboBox(cidadesController.recuperarEstadosBrasileiros().toArray(new String[0]));
-//        comboBoxEstados.setPreferredSize(new Dimension(224, 20));
-//
-//        JLabel cidade = new JLabel("Cidade: ");
-//        List<String> cidadesRecuperar = cidadesController.recuperarCidadesByEstado((String) comboBoxEstados.getSelectedItem());
-//        JComboBox comboBoxCidades = new JComboBox(cidadesRecuperar.toArray(new String[0]));
-//        comboBoxCidades.setPreferredSize(new Dimension(224, 20));
-
-//        alunosModel.setEstado((String) comboBoxEstados.getSelectedItem());
-//        alunosModel.setCidade((String) comboBoxCidades.getSelectedItem());
-
-//        comboBoxEstados.addItemListener(e -> {
-//            if (e.getStateChange() == ItemEvent.SELECTED) {
-//                comboBoxCidades.removeAllItems();
-//                List<String> cidadesDoEstado = cidadesController.recuperarCidadesByEstado(Objects.requireNonNull(comboBoxEstados.getSelectedItem()).toString());
-//
-//                cidadesDoEstado.forEach(cidadeDoEstado -> {
-//                    comboBoxCidades.addItem(cidadeDoEstado);
-//                });
-//
-//                alunosModel.setEstado((String) e.getItem());
-//            }
-//        });
-//
-//        comboBoxCidades.addItemListener(e -> {
-//            if (e.getStateChange() == ItemEvent.SELECTED) {
-//                alunosModel.setCidade((String) e.getItem());
-//            }
-//        });
-
-        JLabel cep = new JLabel("CEP: ");
-        JFormattedTextField cepTxf = new JFormattedTextField();
-        cepTxf.setColumns(20);
-        cepTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "cep"));
-        mascaraCep.install(cepTxf);
-//
-//        JLabel observacao = new JLabel("Observação: ");
-//        JTextArea observacaoTxa = new JTextArea(5, 20);
-//        JScrollPane scpObservacao = new JScrollPane(observacaoTxa);
-//        observacaoTxa.setWrapStyleWord(true);
-//        observacaoTxa.setLineWrap(true);
-//        observacaoTxa.getDocument().addDocumentListener(new BindingListener(alunosModel, "observacao"));
+        JLabel endereco = new JLabel("Endereço: ");
+        JComboBox <String> enderecoCmbox = new JComboBox<>(new String[]{"Ameixa", "Rua Bacana na Casa do seu José Primo do"});
+        enderecoCmbox.setPreferredSize(new Dimension(185, 25));
+        ImageIcon smbMais = new ImageIcon(this.getClass().getResource("/resources/icons/plusIconEndereco.png"));
+        JButton addEnderecoBtn = new JButton(smbMais);
+        addEnderecoBtn.setBackground(Color.WHITE);
+        addEnderecoBtn.setBorder(BorderFactory.createEmptyBorder());
+        addEnderecoBtn.setOpaque(false);
+        addEnderecoBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        addEnderecoBtn.setToolTipText("Novo Endereço");
+        addEnderecoBtn.addActionListener(e ->{
+            JOptionPane.showMessageDialog(null, "Tela Cadasto Endereço Aqui");
+        });
 
         c1.insets = new Insets(0, 0, 10, 35);
         c1.gridx = 0; c1.gridy = 0; c1.anchor = GridBagConstraints.EAST;
-        panel.add(nome, c1);
+        subPanel.add(nome, c1);
         c1.gridx = 1; c1.gridy = 0;
-        panel.add(nomeTxf, c1);
+        subPanel.add(nomeTxf, c1);
         c1.gridx = 0; c1.gridy = 1;
-        panel.add(dataNascimento, c1);
+        subPanel.add(dataNascimento, c1);
         c1.gridx = 1; c1.gridy = 1; c1.anchor = GridBagConstraints.WEST;
-        panel.add(dateSpinner, c1);
+        subPanel.add(dateSpinner, c1);
         c1.gridx = 0; c1.gridy = 2; c1.anchor = GridBagConstraints.EAST;
-        panel.add(cpf, c1);
+        subPanel.add(cpf, c1);
         c1.gridx = 1; c1.gridy = 2;
-        panel.add(cpfTxf, c1);
+        subPanel.add(cpfTxf, c1);
         c1.gridx = 0; c1.gridy = 3; c1.anchor = GridBagConstraints.EAST;
-        panel.add(sexo, c1);
+        subPanel.add(sexo, c1);
         c1.gridx = 1; c1.gridy = 3; c1.anchor = GridBagConstraints.WEST;
-        panel.add(sexoCmbox, c1);
+        subPanel.add(sexoCmbox, c1);
         c1.gridx = 0; c1.gridy = 4; c1.anchor = GridBagConstraints.EAST;
-        panel.add(celular, c1);
+        subPanel.add(celular, c1);
         c1.gridx = 1; c1.gridy = 4; c1.anchor = GridBagConstraints.WEST;
-        panel.add(celularTxf, c1);
+        subPanel.add(celularTxf, c1);
         c1.gridx = 0; c1.gridy = 5; c1.anchor = GridBagConstraints.EAST;
-        panel.add(email, c1);
+        subPanel.add(email, c1);
         c1.gridx = 1; c1.gridy = 5; c1.anchor = GridBagConstraints.WEST;
-        panel.add(emailTxf, c1);
-
-//        panel.add(pais, c1);
-//        c1.gridx = 1; c1.gridy = 6;
-//        panel.add(paisTxf, c1);
-//        c1.gridx = 0; c1.gridy = 7;
-//        panel.add(estado, c1);
-//        c1.gridx = 1; c1.gridy = 7;
-//        panel.add(comboBoxEstados, c1);
-//        c1.gridx = 0; c1.gridy = 8;
-//        panel.add(cidade, c1);
-//        c1.gridx = 1; c1.gridy = 8;
-//        panel.add(comboBoxCidades, c1);
-//        c1.gridx = 0; c1.gridy = 10;
-//        panel.add(bairro, c1);
-//        c1.gridx = 1; c1.gridy = 10;
-//        panel.add(bairroTxf, c1);
-        c1.gridx = 0; c1.gridy = 11; c1.anchor = GridBagConstraints.EAST;
-        panel.add(logradouro, c1);
-        c1.gridx = 1; c1.gridy = 11;
-        panel.add(logradouroTxf, c1);
-        c1.gridx = 0; c1.gridy = 12;
-        panel.add(numero, c1);
-        c1.gridx = 1; c1.gridy = 12; c1.anchor = GridBagConstraints.WEST;
-        panel.add(numeroTxf, c1);
-        c1.gridx = 0; c1.gridy = 9; c1.anchor = GridBagConstraints.EAST;
-        panel.add(cep, c1);
-        c1.gridx = 1; c1.gridy = 9; c1.anchor = GridBagConstraints.WEST;
-        panel.add(cepTxf, c1);
+        subPanel.add(emailTxf, c1);
+        c1.gridx = 0; c1.gridy = 6; c1.anchor = GridBagConstraints.EAST;
+        subPanel.add(endereco, c1);
+        c1.gridx = 1; c1.gridy = 6; c1.anchor = GridBagConstraints.WEST;
+        subPanel.add(enderecoCmbox, c1);
+        c1.gridx = 2; c1.gridy = 6; c1.insets = new Insets(-10,-65,0,0);
+        subPanel.add(addEnderecoBtn, c1);
 
         if (dados != null) {
             isEditando = true;
@@ -235,14 +161,6 @@ public class AlunosCadastro extends EntidadesCadastro {
             }
             celularTxf.setText(dados.getCelular());
             emailTxf.setText(dados.getEmail());
-            cepTxf.setText(dados.getCep());
-            logradouroTxf.setText(dados.getLogradouro());
-            numeroTxf.setText(dados.getNumero());
-//            complementoTxf.setText(dados.getComplemento());
-//            bairroTxf.setText(dados.getBairro());
-//            comboBoxEstados.setSelectedItem(dados.getEstado());
-//            comboBoxCidades.setSelectedItem(dados.getCidade());
-//            paisTxf.setText(dados.getPais());
         }
 
         if(isReadOnly){
@@ -250,19 +168,8 @@ public class AlunosCadastro extends EntidadesCadastro {
             celularTxf.setBorder(BorderFactory.createEmptyBorder());
             emailTxf.setEditable(false);
             emailTxf.setBorder(BorderFactory.createEmptyBorder());
-            logradouroTxf.setEditable(false);
-            logradouroTxf.setBorder(BorderFactory.createEmptyBorder());
-            numeroTxf.setEditable(false);
-            numeroTxf.setBorder(BorderFactory.createEmptyBorder());
-            cepTxf.setEditable(false);
-            cepTxf.setBorder(BorderFactory.createEmptyBorder());
-//            bairroTxf.setEditable(false);
-//            bairroTxf.setBorder(BorderFactory.createEmptyBorder());
-//            comboBoxEstados.setEnabled(false);
-//            comboBoxEstados.setBorder(BorderFactory.createEmptyBorder());
-//            comboBoxCidades.setEnabled(false);
-//            comboBoxCidades.setBorder(BorderFactory.createEmptyBorder());
-            //paisTxf.setBorder(BorderFactory.createEmptyBorder());
+            enderecoCmbox.setEnabled(false);
+            enderecoCmbox.setBorder(BorderFactory.createEmptyBorder());
             nomeTxf.setEditable(false);
             nomeTxf.setBorder(BorderFactory.createEmptyBorder());
             dateSpinner.setEnabled(false);
@@ -273,7 +180,12 @@ public class AlunosCadastro extends EntidadesCadastro {
             cpfTxf.setBorder(BorderFactory.createEmptyBorder());
         }
 
-        add(panel);
+        c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,25,0);
+        panelPrincipal.add(subPanel, c1);
+        c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.CENTER;
+        panelPrincipal.add(panelBotoes, c1);
+
+        add(panelPrincipal);
     }
 
     @Override
