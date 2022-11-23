@@ -13,14 +13,14 @@ public class FaturasDAO extends SistemaDAO {
 
     private Connection conexao;
 
-    private final String select = "SELECT * from public.faturas;";
-    private final String insert = "INSERT INTO public.faturas(id_matricula,data_vencimento,valor,data_pagamento,data_cancelamento)" +
+    private final String select = "SELECT * from mydb.faturas;";
+    private final String insert = "INSERT INTO mydb.faturas(id_matricula,data_vencimento,valor,data_pagamento,data_cancelamento)" +
             "VALUES (?,?,?,?,?);";
-    private final String delete = "DELETE FROM public.faturas WHERE id_matricula = ? AND data_vencimento = ?;";
-    private final String update = "UPDATE public.faturas SET id_matricula = ?, data_vencimento = ?, valor = ?, data_pagamento = ? data_cancelamento = ? " +
+    private final String delete = "DELETE FROM mydb.faturas WHERE id_matricula = ? AND data_vencimento = ?;";
+    private final String update = "UPDATE mydb.faturas SET id_matricula = ?, data_vencimento = ?, valor = ?, data_pagamento = ? data_cancelamento = ? " +
             "WHERE id = ?;";
-    private final String selectById = "SELECT * from public.faturas WHERE id_matricula = ?, data_vencimento = ?;";
-    private final String updateDataCancelamento = "UPDATE public.faturas SET data_cancelamento = ? WHERE id_matricula = ?;";
+    private final String selectById = "SELECT * from mydb.faturas WHERE id_matricula = ?, data_vencimento = ?;";
+    private final String updateDataCancelamento = "UPDATE mydb.faturas SET data_cancelamento = ? WHERE id_matricula = ?;";
 
     private final PreparedStatement pstSelect;
     private final PreparedStatement pstInsert;
