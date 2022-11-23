@@ -1,25 +1,25 @@
 package graphic.entidades.alunos;
 
 import controller.AlunosController;
-import controller.CidadesController;
+import controller.EnderecosController;
 import graphic.entidades.base.BindingListener;
 import graphic.entidades.base.EntidadesCadastro;
+import graphic.entidades.enderecos.EnderecosCadastro;
 import model.AlunosModel;
+import model.EnderecosModel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
-import java.awt.event.*;
 import java.text.ParseException;
 import java.util.*;
-import java.util.List;
 
 public class AlunosCadastro extends EntidadesCadastro {
     private AlunosModel alunosModel = new AlunosModel();
     private AlunosPanel alunosPanel;
-    private boolean isReadOnly = false;
+    private EnderecosModel enderecosModel = new EnderecosModel();
+    private EnderecosController enderecosController = new EnderecosController();
+    private JTextField enderecoTxf;
     private boolean isEditando = false;
 
 
@@ -33,11 +33,6 @@ public class AlunosCadastro extends EntidadesCadastro {
         criaComponentes(dados);
     }
 
-    public AlunosCadastro(AlunosModel dados){
-        isReadOnly = true;
-        criaComponentes(dados);
-    }
-
     private void criaComponentes(AlunosModel dados) {
         JPanel subPanel = new JPanel(new GridBagLayout());
         JPanel panelPrincipal = new JPanel(new GridBagLayout());
@@ -45,17 +40,13 @@ public class AlunosCadastro extends EntidadesCadastro {
         panelPrincipal.setSize(520,430);
 
         MaskFormatter mascaraCelular = null;
-        MaskFormatter mascaraCep = null;
-        MaskFormatter mascaraNumEndereco = null;
+        MaskFormatter mascaraCpf = null;
         try {
             mascaraCelular = new MaskFormatter("(##) #####-####");
-            mascaraCep = new MaskFormatter("#####-###");
-            mascaraNumEndereco = new MaskFormatter("#####");
+            mascaraCpf = new MaskFormatter("###.###.###-##");
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
-        CidadesController cidadesController = new CidadesController();
 
         JLabel nome = new JLabel("Nome: ");
         JTextField nomeTxf = new JTextField(20);
@@ -73,10 +64,11 @@ public class AlunosCadastro extends EntidadesCadastro {
         dateSpinner.addChangeListener(e -> alunosModel.setDataNascimento((Date) dateSpinner.getValue()));
         alunosModel.setDataNascimento(new Date());
 
-        //todo: add formatação
         JLabel cpf = new JLabel("CPF: ");
-        JTextField cpfTxf = new JTextField(20);
+        JFormattedTextField cpfTxf = new JFormattedTextField();
+        cpfTxf.setColumns(20);
         cpfTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "cpf"));
+        mascaraCpf.install(cpfTxf);
 
         JLabel sexo = new JLabel("Sexo: ");
         String[] sexoString = { "Masculino", "Feminino" };
@@ -103,8 +95,9 @@ public class AlunosCadastro extends EntidadesCadastro {
         emailTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "email"));
 
         JLabel endereco = new JLabel("Endereço: ");
-        JComboBox <String> enderecoCmbox = new JComboBox<>(new String[]{"Ameixa", "Rua Bacana na Casa do seu José Primo do"});
-        enderecoCmbox.setPreferredSize(new Dimension(185, 25));
+        JTextField enderecoTxf = new JTextField();
+        enderecoTxf.setPreferredSize(new Dimension(185, 25));
+        enderecoTxf.setEditable(false);
         ImageIcon smbMais = new ImageIcon(this.getClass().getResource("/resources/icons/plusIconEndereco.png"));
         JButton addEnderecoBtn = new JButton(smbMais);
         addEnderecoBtn.setBackground(Color.WHITE);
@@ -112,9 +105,13 @@ public class AlunosCadastro extends EntidadesCadastro {
         addEnderecoBtn.setOpaque(false);
         addEnderecoBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         addEnderecoBtn.setToolTipText("Novo Endereço");
-        addEnderecoBtn.addActionListener(e ->{
-            JOptionPane.showMessageDialog(null, "Tela Cadasto Endereço Aqui");
+        addEnderecoBtn.addActionListener(e -> {
+            EnderecosCadastro enderecosCadastro = new EnderecosCadastro(this, alunosModel, enderecosModel);
+
+            enderecosCadastro.setVisible(true);
         });
+
+        this.enderecoTxf = enderecoTxf;
 
         c1.insets = new Insets(0, 0, 10, 35);
         c1.gridx = 0; c1.gridy = 0; c1.anchor = GridBagConstraints.EAST;
@@ -144,13 +141,14 @@ public class AlunosCadastro extends EntidadesCadastro {
         c1.gridx = 0; c1.gridy = 6; c1.anchor = GridBagConstraints.EAST;
         subPanel.add(endereco, c1);
         c1.gridx = 1; c1.gridy = 6; c1.anchor = GridBagConstraints.WEST;
-        subPanel.add(enderecoCmbox, c1);
+        subPanel.add(enderecoTxf, c1);
         c1.gridx = 2; c1.gridy = 6; c1.insets = new Insets(-10,-65,0,0);
         subPanel.add(addEnderecoBtn, c1);
 
         if (dados != null) {
             isEditando = true;
             alunosModel.setId(dados.getId());
+            alunosModel.setIdEndereco(dados.getIdEndereco());
             nomeTxf.setText(dados.getNome());
             cpfTxf.setText(dados.getCpf());
             dateSpinner.setValue(dados.getDataNascimento());
@@ -161,23 +159,9 @@ public class AlunosCadastro extends EntidadesCadastro {
             }
             celularTxf.setText(dados.getCelular());
             emailTxf.setText(dados.getEmail());
-        }
-
-        if(isReadOnly){
-            celularTxf.setEditable(false);
-            celularTxf.setBorder(BorderFactory.createEmptyBorder());
-            emailTxf.setEditable(false);
-            emailTxf.setBorder(BorderFactory.createEmptyBorder());
-            enderecoCmbox.setEnabled(false);
-            enderecoCmbox.setBorder(BorderFactory.createEmptyBorder());
-            nomeTxf.setEditable(false);
-            nomeTxf.setBorder(BorderFactory.createEmptyBorder());
-            dateSpinner.setEnabled(false);
-            dateSpinner.setBorder(BorderFactory.createEmptyBorder());
-            sexoCmbox.setEnabled(false);
-            sexoCmbox.setBorder(BorderFactory.createEmptyBorder());
-            cpfTxf.setEditable(false);
-            cpfTxf.setBorder(BorderFactory.createEmptyBorder());
+            enderecosModel.setId(alunosModel.getIdEndereco());
+            enderecosModel = enderecosController.recuperarEnderecoDoAluno(enderecosModel);
+            enderecoTxf.setText(enderecosModel.toString());
         }
 
         c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,25,0);
@@ -188,13 +172,27 @@ public class AlunosCadastro extends EntidadesCadastro {
         add(panelPrincipal);
     }
 
+    public void atualizaEndereco(EnderecosModel dados) {
+        this.enderecoTxf.setText(dados.toString());
+    }
+
+    public void setaIdEndereco(Integer idEndereco) {
+        alunosModel.setIdEndereco(idEndereco);
+    }
+
+    public void limpaTela() {
+        getContentPane().removeAll();
+        getContentPane().revalidate();
+        getContentPane().repaint();
+    }
+
     @Override
     protected void onClickSalvar() {
         AlunosController alunosController = new AlunosController();
 
         if (!validaCamposAntesDeSalvar()) return;
 
-        if (!isEditando) {
+        if (alunosModel.getId() == null) {
             alunosController.inserir(alunosModel, this);
         } else {
             alunosController.editar(alunosModel, this);
@@ -209,8 +207,13 @@ public class AlunosCadastro extends EntidadesCadastro {
             return false;
         }
 
-        if(alunosModel.getCpf() == null || alunosModel.getCpf().trim().length() == 0){
+        if (alunosModel.getCpf() == null || alunosModel.getCpf().trim().length() == 0){
             JOptionPane.showMessageDialog(null, "Insira um CPF válido.");
+            return false;
+        }
+
+        if (alunosModel.getIdEndereco() == null) {
+            JOptionPane.showMessageDialog(null, "Insira um endereço válido.");
             return false;
         }
 

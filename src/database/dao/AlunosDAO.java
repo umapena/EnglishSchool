@@ -17,13 +17,13 @@ public class AlunosDAO extends SistemaDAO {
     private final String select = "SELECT * FROM public.alunos ORDER BY id;";
 
     private final String insert =
-            "INSERT INTO public.alunos(nome, data_nascimento, cpf, sexo, celular, email, cep, logradouro, numero) " + //numero, complemento, bairro, cidade, estado, pais, cep
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            "INSERT INTO public.alunos(nome, data_nascimento, cpf, sexo, celular, email, id_endereco) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
     private final String delete = "DELETE FROM public.alunos WHERE id = ?;";
 
     private final String update = "UPDATE public.alunos SET nome = ?, data_nascimento = ?, cpf = ?, sexo = ?," +
-            " celular = ?, email = ?, cep = ?, logradouro = ?, numero = ? WHERE id = ?;"; //complemento = ?, bairro = ?, cidade = ?, estado = ?, pais = ?
+            " celular = ?, email = ?, id_endereco = ? WHERE id = ?;";
 
     private final String selectById = "SELECT * FROM public.alunos WHERE id = ?;";
 
@@ -64,14 +64,7 @@ public class AlunosDAO extends SistemaDAO {
                 alunosModel.setSexo(resultadoQuery.getString("sexo"));
                 alunosModel.setCelular(resultadoQuery.getString("celular"));
                 alunosModel.setEmail(resultadoQuery.getString("email"));
-                alunosModel.setCep(resultadoQuery.getString("cep"));
-                alunosModel.setLogradouro(resultadoQuery.getString("logradouro"));
-                alunosModel.setNumero(resultadoQuery.getString("numero"));
-//                alunosModel.setComplemento(resultadoQuery.getString("complemento"));
-//                alunosModel.setBairro(resultadoQuery.getString("bairro"));
-//                alunosModel.setCidade(resultadoQuery.getString("cidade"));
-//                alunosModel.setEstado(resultadoQuery.getString("estado"));
-//                alunosModel.setPais(resultadoQuery.getString("pais"));
+                alunosModel.setIdEndereco(resultadoQuery.getInt("id_endereco"));
 
                 arrayListAlunos.add(alunosModel);
             }
@@ -100,14 +93,7 @@ public class AlunosDAO extends SistemaDAO {
         pstInsert.setString(4, alunosModel.getSexo());
         pstInsert.setString(5, alunosModel.getCelular());
         pstInsert.setString(6, alunosModel.getEmail());
-        pstInsert.setString(7, alunosModel.getCep());
-        pstInsert.setString(8, alunosModel.getLogradouro());
-        pstInsert.setString(9, alunosModel.getNumero());
-//        pstInsert.setString(10, alunosModel.getComplemento());
-//        pstInsert.setString(11, alunosModel.getBairro());
-//        pstInsert.setString(12, alunosModel.getCidade());
-//        pstInsert.setString(13, alunosModel.getEstado());
-//        pstInsert.setString(14, alunosModel.getPais());
+        pstInsert.setInt(7, alunosModel.getIdEndereco());
 
         try {
             pstInsert.execute();
@@ -147,15 +133,8 @@ public class AlunosDAO extends SistemaDAO {
         pstUpdate.setString(4, alunosModel.getSexo());
         pstUpdate.setString(5, alunosModel.getCelular());
         pstUpdate.setString(6, alunosModel.getEmail());
-        pstUpdate.setString(7, alunosModel.getCep());
-        pstUpdate.setString(8, alunosModel.getLogradouro());
-        pstUpdate.setString(9, alunosModel.getNumero());
-//        pstUpdate.setString(10, alunosModel.getComplemento());
-//        pstUpdate.setString(11, alunosModel.getBairro());
-//        pstUpdate.setString(12, alunosModel.getCidade());
-//        pstUpdate.setString(13, alunosModel.getEstado());
-//        pstUpdate.setString(14, alunosModel.getPais());
-        pstUpdate.setInt(10, alunosModel.getId());
+        pstUpdate.setInt(7, alunosModel.getIdEndereco());
+        pstUpdate.setInt(8, alunosModel.getId());
 
         try {
             pstUpdate.execute();
@@ -187,14 +166,7 @@ public class AlunosDAO extends SistemaDAO {
                 alunosModel.setSexo(resultadoQuery.getString("sexo"));
                 alunosModel.setCelular(resultadoQuery.getString("celular"));
                 alunosModel.setEmail(resultadoQuery.getString("email"));
-                alunosModel.setCep(resultadoQuery.getString("cep"));
-                alunosModel.setLogradouro(resultadoQuery.getString("logradouro"));
-                alunosModel.setNumero(resultadoQuery.getString("numero"));
-//                alunosModel.setComplemento(resultadoQuery.getString("complemento"));
-//                alunosModel.setBairro(resultadoQuery.getString("bairro"));
-//                alunosModel.setCidade(resultadoQuery.getString("cidade"));
-//                alunosModel.setEstado(resultadoQuery.getString("estado"));
-//                alunosModel.setPais(resultadoQuery.getString("pais"));
+                alunosModel.setIdEndereco(resultadoQuery.getInt("id_endereco"));
 
                 arrayListAlunos.add(alunosModel);
             }

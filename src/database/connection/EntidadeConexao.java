@@ -5,7 +5,7 @@ public class EntidadeConexao {
     private String porta = "5432"; //3306
     private String nomeBanco = "EnglishSchool";
     private String usuario = "postgres"; //admin
-    private String senha = "admin"; //admin
+    private String senha = "postgres"; //admin
 
     public String getEndereco() {
         return endereco;
