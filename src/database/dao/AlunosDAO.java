@@ -97,9 +97,9 @@ public class AlunosDAO extends SistemaDAO {
 
         try {
             pstInsert.execute();
-            System.out.println(pstInsert);
         } catch (SQLException e) {
             dbUtil.trataExcecoesDeAcordoComState(e.getSQLState());
+            e.printStackTrace();
         } finally {
             dbUtil.fecharConexaoEPrpdStatement(conexao, pstInsert);
         }

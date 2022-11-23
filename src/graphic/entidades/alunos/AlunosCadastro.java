@@ -10,7 +10,11 @@ import model.EnderecosModel;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 
@@ -42,8 +46,8 @@ public class AlunosCadastro extends EntidadesCadastro {
         MaskFormatter mascaraCelular = null;
         MaskFormatter mascaraCpf = null;
         try {
-            mascaraCelular = new MaskFormatter("(##) #####-####");
-            mascaraCpf = new MaskFormatter("###.###.###-##");
+            mascaraCelular = new MaskFormatter("###########");
+            mascaraCpf = new MaskFormatter("###########");
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -67,8 +71,18 @@ public class AlunosCadastro extends EntidadesCadastro {
         JLabel cpf = new JLabel("CPF: ");
         JFormattedTextField cpfTxf = new JFormattedTextField();
         cpfTxf.setColumns(20);
+        cpfTxf.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                try {
+                    Double.parseDouble(String.valueOf(e.getKeyChar()));
+                } catch (NumberFormatException ex) {
+                    e.consume();
+                }
+            }
+        });
         cpfTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "cpf"));
-        mascaraCpf.install(cpfTxf);
+//        mascaraCpf.install(cpfTxf);
 
         JLabel sexo = new JLabel("Sexo: ");
         String[] sexoString = { "Masculino", "Feminino" };
@@ -172,14 +186,6 @@ public class AlunosCadastro extends EntidadesCadastro {
         add(panelPrincipal);
     }
 
-    public void atualizaEndereco(EnderecosModel dados) {
-        this.enderecoTxf.setText(dados.toString());
-    }
-
-    public void setaIdEndereco(Integer idEndereco) {
-        alunosModel.setIdEndereco(idEndereco);
-    }
-
     public void limpaTela() {
         getContentPane().removeAll();
         getContentPane().revalidate();
@@ -207,7 +213,7 @@ public class AlunosCadastro extends EntidadesCadastro {
             return false;
         }
 
-        if (alunosModel.getCpf() == null || alunosModel.getCpf().trim().length() == 0){
+        if (alunosModel.getCpf() == null || alunosModel.getCpf().trim().length() != 11) {
             JOptionPane.showMessageDialog(null, "Insira um CPF válido.");
             return false;
         }

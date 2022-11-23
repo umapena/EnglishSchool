@@ -40,10 +40,8 @@ public class EnderecosCadastro extends EntidadesCadastro {
         panelPrincipal.setSize(520,430);
 
         MaskFormatter mascaraCep = null;
-        MaskFormatter mascaraNumero = null;
         try {
-            mascaraCep = new MaskFormatter("#####-###");
-            mascaraNumero = new MaskFormatter("#####");
+            mascaraCep = new MaskFormatter("########");
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -207,4 +205,5 @@ public class EnderecosCadastro extends EntidadesCadastro {
         alunosCadastro.criaComponentes(alunosModel);
         dispose();
     }
+
 }
