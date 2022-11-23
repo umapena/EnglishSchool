@@ -121,30 +121,30 @@ public class EnderecosCadastro extends EntidadesCadastro {
         numeroSpinner.addChangeListener(e -> enderecosModel.setNumero((Integer) numeroSpinner.getValue()));
         enderecosModel.setNumero((Integer) numeroSpinner.getValue());
 
-        c1.insets = new Insets(0, 0, 10, 35);
+        c1.insets = new Insets(0, 0, 15, 35);
         c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.EAST;
         subPanel.add(estado, c1);
-        c1.gridx = 1; c1.gridy = 1; c1.anchor = GridBagConstraints.EAST;
+        c1.gridx = 1; c1.gridy = 1;
         subPanel.add(comboBoxEstados, c1);
-        c1.gridx = 0; c1.gridy = 2; c1.anchor = GridBagConstraints.EAST;
+        c1.gridx = 0; c1.gridy = 2;
         subPanel.add(cidade, c1);
-        c1.gridx = 1; c1.gridy = 2; c1.anchor = GridBagConstraints.EAST;
+        c1.gridx = 1; c1.gridy = 2;
         subPanel.add(comboBoxCidades, c1);
-        c1.gridx = 0; c1.gridy = 3; c1.anchor = GridBagConstraints.EAST;
+        c1.gridx = 0; c1.gridy = 3;
         subPanel.add(bairro, c1);
-        c1.gridx = 1; c1.gridy = 3; c1.anchor = GridBagConstraints.EAST;
+        c1.gridx = 1; c1.gridy = 3;
         subPanel.add(comboBoxBairros, c1);
-        c1.gridx = 0; c1.gridy = 4; c1.anchor = GridBagConstraints.EAST;
+        c1.gridx = 0; c1.gridy = 4;
         subPanel.add(cep, c1);
-        c1.gridx = 1; c1.gridy = 4; c1.anchor = GridBagConstraints.WEST;
+        c1.gridx = 1; c1.gridy = 4;
         subPanel.add(cepTxf, c1);
-        c1.gridx = 0; c1.gridy = 5; c1.anchor = GridBagConstraints.EAST;
+        c1.gridx = 0; c1.gridy = 5;
         subPanel.add(logradouro, c1);
-        c1.gridx = 1; c1.gridy = 5; c1.anchor = GridBagConstraints.WEST;
+        c1.gridx = 1; c1.gridy = 5;
         subPanel.add(logradouroTxf, c1);
-        c1.gridx = 0; c1.gridy = 6; c1.anchor = GridBagConstraints.EAST;
+        c1.gridx = 0; c1.gridy = 6;
         subPanel.add(numero, c1);
-        c1.gridx = 1; c1.gridy = 6; c1.anchor = GridBagConstraints.WEST;
+        c1.gridx = 1; c1.gridy = 6;  c1.anchor = GridBagConstraints.WEST;;
         subPanel.add(numeroSpinner, c1);
 
         if (dados.getId() != null) {
