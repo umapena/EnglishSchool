@@ -23,42 +23,19 @@ public class FaturasCadastro extends EntidadesCadastro {
     private boolean isEditando = false;
     public FaturasCadastro(FaturasPanel faturasPanel) {
         this.faturasPanel = faturasPanel;
-        setSize(520, 280);
         criaComponentes(null);
     }
     public FaturasCadastro(FaturasModel dados, FaturasPanel faturasPanel) {
         this.faturasPanel = faturasPanel;
-        setSize(520, 280);
         criaComponentes(dados);
     }
 
-    @Override
-    public void criarBotoes() {
-
-        JButton btnFechar = new JButton("Cancelar");
-        btnFechar.setBounds(80,180,120,30);
-        btnFechar.setFont(new Font("Helvetica", Font.BOLD, 16));
-        btnFechar.setBackground(new Color(255,92,92));
-        btnFechar.setBorder(BorderFactory.createLineBorder(new Color(255, 92, 92)));
-        add(btnFechar);
-
-        btnFechar.addActionListener(e -> {
-            dispose();
-        });
-
-        JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.setBounds(290,180,120,30);;
-        btnSalvar.addActionListener(e -> onClickSalvar());
-        btnSalvar.setFont(new Font("Helvetica", Font.BOLD, 16));
-        btnSalvar.setBackground(new Color(87, 241, 87, 210));
-        btnSalvar.setBorder(BorderFactory.createLineBorder(new Color(87, 241, 87, 210)));
-        add(btnSalvar);
-    }
-
     private void criaComponentes(FaturasModel dados){
-        JPanel panel = new JPanel(new GridBagLayout());
+        setSize(520, 280);
+        JPanel subPanel = new JPanel(new GridBagLayout());
+        JPanel panelPrincipal = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
-        panel.setSize(520,230);
+        panelPrincipal.setSize(520,280);
 
         MatriculasController matriculasController = new MatriculasController();
         ArrayList<MatriculasModel> matriculasRecuperadas = matriculasController.recuperaMatriculasParaComboBox();
@@ -103,19 +80,19 @@ public class FaturasCadastro extends EntidadesCadastro {
         faturasModel.setValor((Double) valorSpinner.getValue());
 
 
-        c1.insets = new Insets(0, 0, 30, 35);
+        c1.insets = new Insets(0, 0, 20, 35);
         c1.gridx = 0; c1.gridy = 0;
-        panel.add(matriculas,c1);
+        subPanel.add(matriculas,c1);
         c1.gridx = 1; c1.gridy = 0;
-        panel.add(comboBoxMatriculas,c1);
+        subPanel.add(comboBoxMatriculas,c1);
         c1.gridx = 0; c1.gridy = 1;
-        panel.add(dataVencimento,c1);
+        subPanel.add(dataVencimento,c1);
         c1.gridx = 1; c1.gridy = 1;
-        panel.add(dateSpinner,c1);
+        subPanel.add(dateSpinner,c1);
         c1.gridx = 0; c1.gridy = 2;
-        panel.add(valor,c1);
+        subPanel.add(valor,c1);
         c1.gridx = 1; c1.gridy = 2;
-        panel.add(valorSpinner,c1);
+        subPanel.add(valorSpinner,c1);
 
 
         if (dados != null) {
@@ -128,7 +105,12 @@ public class FaturasCadastro extends EntidadesCadastro {
             });
         }
 
-        add(panel);
+        c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,15,0);
+        panelPrincipal.add(subPanel, c1);
+        c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.CENTER; c1.insets = new Insets(0,0,25,0);
+        panelPrincipal.add(panelBotoes, c1);
+
+        add(panelPrincipal);
     }
 
     @Override

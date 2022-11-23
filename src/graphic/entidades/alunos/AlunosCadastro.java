@@ -179,7 +179,7 @@ public class AlunosCadastro extends EntidadesCadastro {
             enderecoTxa.setText(enderecosModel.toString());
         }
 
-        c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,25,0);
+        c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,30,0);
         panelPrincipal.add(subPanel, c1);
         c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.CENTER;
         panelPrincipal.add(panelBotoes, c1);

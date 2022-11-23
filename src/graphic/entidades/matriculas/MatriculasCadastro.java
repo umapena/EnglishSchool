@@ -28,42 +28,20 @@ public class MatriculasCadastro extends EntidadesCadastro {
     private boolean isEditando = false;
     public MatriculasCadastro(MatriculasPanel matriculasPanel) {
         this.matriculasPanel = matriculasPanel;
-        setSize(520, 350);
         criaComponentes(null);
     }
 
     public MatriculasCadastro(MatriculasModel dados, MatriculasPanel matriculasPanel) {
         this.matriculasPanel = matriculasPanel;
-        setSize(520, 350);
         criaComponentes(dados);
     }
 
-    @Override
-    public void criarBotoes() {
-        JButton btnFechar = new JButton("Cancelar");
-        btnFechar.setBounds(80,200,120,30);
-        btnFechar.setFont(new Font("Helvetica", Font.BOLD, 16));
-        btnFechar.setBackground(new Color(255,92,92));
-        btnFechar.setBorder(BorderFactory.createLineBorder(new Color(255, 92, 92)));
-        add(btnFechar);
-
-        btnFechar.addActionListener(e -> {
-            dispose();
-        });
-
-        JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.setBounds(290,200,120,30);;
-        btnSalvar.addActionListener(e -> onClickSalvar());
-        btnSalvar.setFont(new Font("Helvetica", Font.BOLD, 16));
-        btnSalvar.setBackground(new Color(87, 241, 87, 210));
-        btnSalvar.setBorder(BorderFactory.createLineBorder(new Color(87, 241, 87, 210)));
-        add(btnSalvar);
-    }
-
     private void criaComponentes(MatriculasModel dados){
-        JPanel panel = new JPanel(new GridBagLayout());
+        setSize(520, 280);
+        JPanel subPanel = new JPanel(new GridBagLayout());
+        JPanel panelPrincipal = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
-        panel.setSize(520, 200);
+        panelPrincipal.setSize(520,280);
 
         ArrayList<AlunosModel> alunosRecuperados = alunosController.recuperaAlunosParaComboBox();
         AlunosComboModel alunosComboModel = new AlunosComboModel(alunosRecuperados);
@@ -140,19 +118,19 @@ public class MatriculasCadastro extends EntidadesCadastro {
         matriculasModel.setDataMatricula(sqlDate);
 
 
-        c1.insets = new Insets(0, 0, 30, 35);
+        c1.insets = new Insets(0, 0, 20, 35);
         c1.gridx = 0; c1.gridy = 0; c1.anchor = GridBagConstraints.EAST;
-        panel.add(labelAlunos, c1);
+        subPanel.add(labelAlunos, c1);
         c1.gridx = 1; c1.gridy = 0; c1.anchor = GridBagConstraints.WEST;
-        panel.add(comboBoxAlunos, c1);
+        subPanel.add(comboBoxAlunos, c1);
         c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.EAST;
-        panel.add(labelTurma, c1);
+        subPanel.add(labelTurma, c1);
         c1.gridx = 1; c1.gridy = 1; c1.anchor = GridBagConstraints.WEST;
-        panel.add(comboBoxTurmas, c1);
+        subPanel.add(comboBoxTurmas, c1);
         c1.gridx = 0; c1.gridy = 2; c1.anchor = GridBagConstraints.EAST;
-        panel.add(labelDiaVencimento, c1);
+        subPanel.add(labelDiaVencimento, c1);
         c1.gridx = 1; c1.gridy = 2; c1.anchor = GridBagConstraints.WEST;
-        panel.add(diaVencimentoSpn, c1);
+        subPanel.add(diaVencimentoSpn, c1);
 
         if (dados != null) {
             isEditando = true;
@@ -170,7 +148,12 @@ public class MatriculasCadastro extends EntidadesCadastro {
             });
         }
 
-        add(panel);
+        c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,15,0);
+        panelPrincipal.add(subPanel, c1);
+        c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.CENTER; c1.insets = new Insets(0,0,25,0);
+        panelPrincipal.add(panelBotoes, c1);
+
+        add(panelPrincipal);
     }
 
     @Override

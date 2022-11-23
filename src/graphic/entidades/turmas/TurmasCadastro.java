@@ -28,10 +28,11 @@ public class TurmasCadastro extends EntidadesCadastro {
     }
 
     private void criaComponentes(TurmasModel dados){
+        setSize(520, 320);
         JPanel subPanel = new JPanel(new GridBagLayout());
         JPanel panelPrincipal = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
-        panelPrincipal.setSize(520,430);
+        panelPrincipal.setSize(520,320);
         ;
 
         JLabel nome = new JLabel("Nome: ");
@@ -77,21 +78,22 @@ public class TurmasCadastro extends EntidadesCadastro {
         valorSpinner.addChangeListener(e -> turmasModel.setValor((Double) valorSpinner.getValue()));
         turmasModel.setValor((Double) valorSpinner.getValue());
 
-        c1.insets = new Insets(0, 0, 30, 35);
-        c1.gridx = 0; c1.gridy = 0; c1.anchor = GridBagConstraints.NORTHEAST;
+        c1.insets = new Insets(0, 0, 20, 40);
+        c1.gridx = 0; c1.gridy = 0; c1.anchor = GridBagConstraints.EAST;
         subPanel.add(nome, c1);
-        c1.gridx = 1; c1.gridy = 0;
-        subPanel.add(nomeTxf, c1);
-        c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.NORTHEAST;
+        c1.gridx = 0; c1.gridy = 1;
         subPanel.add(nivel, c1);
+        c1.gridx = 0; c1.gridy = 2;
+        subPanel.add(periodo, c1);
+        c1.gridx = 0; c1.gridy = 3;
+        subPanel.add(valor, c1);
+        c1.insets = new Insets(0, 0, 20, 0);
+        c1.gridx = 1; c1.gridy = 0; c1.anchor = GridBagConstraints.WEST;
+        subPanel.add(nomeTxf, c1);
         c1.gridx = 1; c1.gridy = 1;
         subPanel.add(nivelCmbox, c1);
-        c1.gridx = 0; c1.gridy = 2; c1.anchor = GridBagConstraints.NORTHEAST;
-        subPanel.add(periodo, c1);
         c1.gridx = 1; c1.gridy = 2;
         subPanel.add(periodoCmbox, c1);
-        c1.gridx = 0; c1.gridy = 3; c1.anchor = GridBagConstraints.NORTHEAST;
-        subPanel.add(valor, c1);
         c1.gridx = 1; c1.gridy = 3;
         subPanel.add(valorSpinner, c1);
 
@@ -112,9 +114,9 @@ public class TurmasCadastro extends EntidadesCadastro {
             }
         }
 
-        c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,25,0);
+        c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,15,0);
         panelPrincipal.add(subPanel, c1);
-        c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.CENTER;
+        c1.gridx = 0; c1.gridy = 1; c1.anchor = GridBagConstraints.CENTER; c1.insets = new Insets(0,0,25,0);
         panelPrincipal.add(panelBotoes, c1);
 
         add(panelPrincipal);
