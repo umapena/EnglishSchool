@@ -70,6 +70,10 @@ public class EnderecosCadastro extends EntidadesCadastro {
                 EstadosModel estadoSelecionado = (EstadosModel) comboBoxEstados.getSelectedItem();
                 comboBoxCidades.setSelectedIndex(-1);
                 comboBoxCidades.removeAllItems();
+                comboBoxBairros.removeAllItems();
+                comboBoxBairros.repaint();
+                comboBoxBairros.setSelectedItem(null);
+                enderecosModel.setIdBairro(null);
                 ArrayList<CidadesModel> cidadesDoEstado = cidadesController.recuperarCidadesByEstado(estadoSelecionado.getId());
 
                 cidadesDoEstado.forEach(cidade -> {
@@ -195,6 +199,8 @@ public class EnderecosCadastro extends EntidadesCadastro {
     protected void onClickSalvar() {
         EnderecosController enderecosController = new EnderecosController();
 
+        if(excutaValidacoes()) return;
+
         if (enderecosModel.getId() != null) {
             enderecosController.editar(enderecosModel);
         } else {
@@ -207,4 +213,11 @@ public class EnderecosCadastro extends EntidadesCadastro {
         dispose();
     }
 
+    private boolean excutaValidacoes(){
+        if(enderecosModel.getIdBairro() == null){
+            JOptionPane.showMessageDialog(null, "Insira um bairro válido!");
+            return true;
+        }
+        return false;
+    }
 }
