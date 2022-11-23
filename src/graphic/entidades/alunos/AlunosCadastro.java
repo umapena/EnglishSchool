@@ -22,6 +22,7 @@ public class AlunosCadastro extends EntidadesCadastro {
     private JTextField enderecoTxf;
     private boolean isEditando = false;
 
+
     public AlunosCadastro(AlunosPanel alunosPanel) {
         this.alunosPanel = alunosPanel;
         criaComponentes(null);
@@ -32,7 +33,7 @@ public class AlunosCadastro extends EntidadesCadastro {
         criaComponentes(dados);
     }
 
-    public void criaComponentes(AlunosModel dados) {
+    private void criaComponentes(AlunosModel dados) {
         JPanel subPanel = new JPanel(new GridBagLayout());
         JPanel panelPrincipal = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
@@ -97,7 +98,7 @@ public class AlunosCadastro extends EntidadesCadastro {
         JTextField enderecoTxf = new JTextField();
         enderecoTxf.setPreferredSize(new Dimension(185, 25));
         enderecoTxf.setEditable(false);
-        ImageIcon smbMais = new ImageIcon(this.getClass().getResource("/resources/icons/plusIcon.png"));
+        ImageIcon smbMais = new ImageIcon(this.getClass().getResource("/resources/icons/plusIconEndereco.png"));
         JButton addEnderecoBtn = new JButton(smbMais);
         addEnderecoBtn.setBackground(Color.WHITE);
         addEnderecoBtn.setBorder(BorderFactory.createEmptyBorder());

@@ -1,3 +1,31 @@
+CREATE TABLE estados (
+    id serial CONSTRAINT estados_pk PRIMARY KEY,
+    nome text NOT NULL
+);
+
+CREATE TABLE cidades (
+    id serial CONSTRAINT cidades_pk PRIMARY KEY,
+    nome text NOT NULL,
+    id_estado integer NOT NULL,
+    CONSTRAINT estados_fk FOREIGN KEY(id_estado) REFERENCES estados(id) DEFERRABLE
+);
+
+CREATE TABLE bairros (
+    id serial CONSTRAINT bairros_pk PRIMARY KEY,
+    nome text NOT NULL,
+    id_cidade integer NOT NULL,
+    CONSTRAINT cidades_fk FOREIGN KEY(id_cidade) REFERENCES cidades(id) DEFERRABLE
+);
+
+CREATE TABLE enderecos (
+    id serial CONSTRAINT enderecos_pk PRIMARY KEY,
+    logradouro text NOT NULL,
+    cep text NOT NULL,
+    numero integer NOT NULL,
+    id_bairro integer NOT NULL,
+    CONSTRAINT bairros_fk FOREIGN KEY(id_bairro) REFERENCES bairros(id) DEFERRABLE
+);
+
 CREATE TABLE alunos (
   id serial NOT NULL CONSTRAINT aluno_pk PRIMARY KEY,
   nome text NOT NULL,
@@ -41,31 +69,3 @@ CREATE TABLE faturas (
   data_pagamento timestamp DEFAULT localtimestamp,
   data_cancelamento date
 );
-
-CREATE TABLE enderecos (
-    id serial CONSTRAINT enderecos_pk PRIMARY KEY,
-    logradouro text NOT NULL,
-    cep text NOT NULL,
-    numero integer NOT NULL,
-    id_bairro integer NOT NULL,
-    CONSTRAINT bairros_fk FOREIGN KEY(id_bairro) REFERENCES bairros(id) DEFERRABLE
-)
-
-CREATE TABLE bairros (
-    id serial CONSTRAINT bairros_pk PRIMARY KEY,
-    nome text NOT NULL,
-    id_cidade integer NOT NULL,
-    CONSTRAINT cidades_fk FOREIGN KEY(id_cidade) REFERENCES cidades(id) DEFERRABLE
-)
-
-CREATE TABLE cidades (
-    id serial CONSTRAINT cidades_pk PRIMARY KEY,
-    nome text NOT NULL,
-    id_estado NOT NULL,
-    CONSTRAINT estados_fk FOREIGN KEY(id_estado) REFERENCES estados(id) DEFERRABLE
-)
-
-CREATE TABLE estados (
-    id serial CONSTRAINT estados_pk PRIMARY KEY,
-    nome text NOT NULL
-)
