@@ -12,7 +12,7 @@ import java.util.List;
 public class EnderecosDAO extends SistemaDAO {
     private Connection conexao;
 
-    private String insert = "INSERT INTO public.enderecos(logradouro, cep, numero, id_bairro) values (?, ?, ?, ?)";
+    private String insert = "INSERT INTO enderecos(logradouro, cep, numero, id_bairro) values (?, ?, ?, ?)";
 
     private String selectById = "SELECT ES.ID AS ID_ESTADO, C.ID AS ID_CIDADE, ES.NOME AS ESTADO, C.NOME AS CIDADE, B.NOME AS BAIRRO, E.LOGRADOURO, E.NUMERO, E.CEP, E.ID_BAIRRO, E.ID FROM ESTADOS ES " +
             "INNER JOIN CIDADES C ON (ES.ID = C.ID_ESTADO) INNER JOIN BAIRROS B ON (B.ID_CIDADE = C.ID) INNER JOIN ENDERECOS E ON (E.ID_BAIRRO = B.ID) " +
@@ -56,7 +56,6 @@ public class EnderecosDAO extends SistemaDAO {
             idInserido = generatedKeys.getInt(1);
         }
 
-        System.out.println(pstInsert);
         return idInserido;
     }
 

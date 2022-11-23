@@ -21,7 +21,7 @@ begin
 			aux_ano = aux_ano + 1;
 		end if;
 
-        delete from mydb.faturas
+        delete from public.faturas
         where id_matricula = old.id_matricula
         and data_vencimento = (aux_ano || '-' || aux_mes || '-' || old.dia_vencimento)::date
         and data_pagamento is null
@@ -55,7 +55,7 @@ begin
 			aux_ano = aux_ano + 1;
 		end if;
 
-        insert into mydb.faturas (id_matricula, data_vencimento, valor, data_pagamento, data_cancelamento)
+        insert into public.faturas (id_matricula, data_vencimento, valor, data_pagamento, data_cancelamento)
         values (
             new.id_matricula,
             make_date(aux_ano, aux_mes, dia_vencimento),
@@ -70,12 +70,12 @@ $gerar_faturas$ LANGUAGE plpgsql;
 
 create trigger gerar_faturas
 after insert
-on mydb.matriculas
+on public.matriculas
 for each row
-execute function mydb.gerar_faturas();
+execute function public.gerar_faturas();
 
 create trigger atualizar_faturas
 after delete
-on mydb.matriculas
+on public.matriculas
 for each row
-execute function mydb.atualizar_faturas();
+execute function public.atualizar_faturas();

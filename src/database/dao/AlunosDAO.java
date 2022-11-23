@@ -94,7 +94,7 @@ public class AlunosDAO extends SistemaDAO {
         pstInsert.setString(5, alunosModel.getCelular());
         pstInsert.setString(6, alunosModel.getEmail());
         pstInsert.setInt(7, alunosModel.getIdEndereco());
-        System.out.println(pstInsert);
+
         try {
             pstInsert.execute();
             System.out.println(pstInsert);

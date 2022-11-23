@@ -11,10 +11,6 @@ public class EntidadeConexao {
         return endereco;
     }
 
-    public String getPorta() {
-        return porta;
-    }
-
     public String getNomeBanco() {
         return nomeBanco;
     }
