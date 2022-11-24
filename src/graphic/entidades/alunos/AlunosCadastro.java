@@ -177,6 +177,7 @@ public class AlunosCadastro extends EntidadesCadastro {
             enderecosModel.setId(alunosModel.getIdEndereco());
             enderecosModel = enderecosController.recuperarEnderecoDoAluno(enderecosModel);
             enderecoTxa.setText(enderecosModel.toString());
+            enderecoTxa.setEditable(false);
         }
 
         c1.gridx = 0; c1.gridy = 0; c1.insets = new Insets(0,0,30,0);
