@@ -37,7 +37,7 @@ public class MatriculasPanel extends EntidadesPanel {
             try {
                 Integer linha = tabela.getSelectedRow();
                 String id = tabela.getModel().getValueAt(linha, 0).toString();
-                String data = tabela.getModel().getValueAt(linha, 4).toString();
+                String data = tabela.getModel().getValueAt(linha, 5).toString();
                 onClickEncerrarMatricula(id, data);
             }catch (ArrayIndexOutOfBoundsException ex){
                 JOptionPane.showMessageDialog(null,"Selecione um registro para encerrar a matricula!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
