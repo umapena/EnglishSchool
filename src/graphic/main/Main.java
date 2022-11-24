@@ -13,7 +13,6 @@ public class Main extends JFrame {
     public Main() {
         setSize(1100,820);
         setTitle("TW English School");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/icons/sistemaIcon.png")));
         setResizable(false);
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
