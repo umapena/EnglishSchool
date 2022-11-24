@@ -46,19 +46,24 @@ public class FaturasDAO extends SistemaDAO {
 
     @Override
     public List<Object> select() throws SQLException {
-        ResultSet resultadoQuery = pstSelect.executeQuery();
         List <Object> arrayListFaturasMatriculas = new ArrayList<>();
 
-        while (resultadoQuery.next()){
-            FaturasModel faturasModel = new FaturasModel();
+        try {
+            ResultSet resultadoQuery = pstSelect.executeQuery();
 
-            faturasModel.setIdMatricula(resultadoQuery.getInt("id_matricula"));
-            faturasModel.setDataVencimento(resultadoQuery.getDate("data_vencimento"));
-            faturasModel.setValor(resultadoQuery.getDouble("valor"));
-            faturasModel.setDataPagamento(resultadoQuery.getTimestamp("data_pagamento"));
-            faturasModel.setDataCancelamento(resultadoQuery.getDate("data_cancelamento"));
+            while (resultadoQuery.next()) {
+                FaturasModel faturasModel = new FaturasModel();
 
-            arrayListFaturasMatriculas.add(faturasModel);
+                faturasModel.setIdMatricula(resultadoQuery.getInt("id_matricula"));
+                faturasModel.setDataVencimento(resultadoQuery.getDate("data_vencimento"));
+                faturasModel.setValor(resultadoQuery.getDouble("valor"));
+                faturasModel.setDataPagamento(resultadoQuery.getTimestamp("data_pagamento"));
+                faturasModel.setDataCancelamento(resultadoQuery.getDate("data_cancelamento"));
+
+                arrayListFaturasMatriculas.add(faturasModel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return arrayListFaturasMatriculas;

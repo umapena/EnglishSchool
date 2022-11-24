@@ -10,11 +10,9 @@ import model.EnderecosModel;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
-import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 
@@ -82,7 +80,6 @@ public class AlunosCadastro extends EntidadesCadastro {
             }
         });
         cpfTxf.getDocument().addDocumentListener(new BindingListener(alunosModel, "cpf"));
-//        mascaraCpf.install(cpfTxf);
 
         JLabel sexo = new JLabel("Sexo: ");
         String[] sexoString = { "Masculino", "Feminino" };
@@ -113,6 +110,7 @@ public class AlunosCadastro extends EntidadesCadastro {
         JScrollPane scpEndereco = new JScrollPane(enderecoTxa);
         enderecoTxa.setWrapStyleWord(true);
         enderecoTxa.setLineWrap(true);
+        enderecoTxa.setEditable(false);
         ImageIcon smbMais = new ImageIcon(this.getClass().getResource("/resources/icons/editarEnderecoIcon.png"));
         JButton addEnderecoBtn = new JButton(smbMais);
         addEnderecoBtn.setBackground(Color.WHITE);

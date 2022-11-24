@@ -35,11 +35,6 @@ public abstract class EntidadesPanel extends JPanel {
         painelCima.setBounds(0, 0, 1100, 140);
         add(painelCima);
 
-        ImageIcon imagemLogo = new ImageIcon(this.getClass().getResource("/resources/icons/logoPequeno.png"));
-        JLabel labelLogo = new JLabel(imagemLogo);
-        labelLogo.setBounds(925, 15, 87, 105);
-        painelCima.add(labelLogo);
-
         JButton btnVoltar = criaBotaoVoltar();
         painelCima.add(btnVoltar);
 
